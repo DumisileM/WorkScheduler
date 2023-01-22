@@ -1,6 +1,7 @@
 var currentHour = $('.hour')
-var currentTextArea = ($('.time-block'))
-
+var currentTextArea = $('.time-block')
+var saveBtn = $('.saveBtn')
+// var storedActivites = JSON.parse(localStorage.getItem("activities"))
 
 
 //Display current date at the top of page.
@@ -16,7 +17,7 @@ function setHours(){
     and displays them on timeblocks*/
     for(let i=9; i < 18;){
  
-        $( ".hour" ).each(function( index ) {
+        $( ".hour" ).each(function() {
           var hour = moment().hours(i).format("HH a");
           
           i++
@@ -32,7 +33,7 @@ function setHours(){
 function setPastPresentFuture(){
     currentHour.each(function(){
         var formattedHour = moment().format("YYYY-MM-DD " + `${$(this).text().slice(0,3)}:mm:ss`.replace(/\s+/g, ''))
-        console.log(moment(formattedHour).isValid())
+      
         var today = moment(moment().format("YYYY-MM-DD HH:mm:ss"))
         
         // var test = moment("2023-01-22 09:00:00","YYYY-MM-DD HH:mm:ss")
@@ -44,41 +45,73 @@ function setPastPresentFuture(){
             
             $(this).next().addClass("future");
         }else if(today.isAfter(formattedHour,"hour")){
-            console.log("past")
-          
+           
             $(this).next().addClass("past");
         }
     })
     };
+ 
 
-    
-    
 function makeEntryAndSave(){
-    currentTextArea.each(function(){
-        $(this).on("keydown",function(){
-            console.log($(this).val())
-            localStorage.setItem("activity",$(this).val());
-            var activity = localStorage.getItem("activity")
-            $(this).text(activity)
-            return activity
+    var activites= []
+    
+    saveBtn.each(function(index,btn){
+        var item = JSON.parse(localStorage.getItem(`activity${index}`.replace(/\s+/g, '')))
 
-        })
+        $(this).prev().text(item)
+        $(this).click(function(){
+
+            if($(this).prev().val()){
+                console.log($(this).prev().val())
+                console.log(index)
+                localStorage.setItem(`activity${index}`.replace(/\s+/g, ''),JSON.stringify($(this).prev().val()))
+
+                
+            // activites.push($(this).prev().val())
         
-        
-       
+            
+            // localStorage.setItem("activities",JSON.stringify(activites))
+         
+            
+            
+          
+        }
+    
+    })
+
+
 
 
     })
 
-}
-function getEntry(){
+   
+
+  
     
 }
-  
+
+// function getEntry(){
+
+//       // $(this).prev().text(storedActivites[index])
+//       currentTextArea.each(function(index){
+    
+//         if (storedActivites){
+//             $(this).text(storedActivites[index])
+           
+
+
+//         }
+        
+//       })
+      
+
+// }
+
 getCurrentDay()
 setHours()
 setPastPresentFuture()
 makeEntryAndSave()
+// getEntry()
 
 
 
