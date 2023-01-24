@@ -8,7 +8,7 @@ This is to help people with busy schedules by allowing them to plan their work d
 
 ## Installation/Access
 The web app  has been deployed on GitHub pages and can be accessed via this link:  
-https://dumisilem.github.io/Bootstrap-Portfolio/
+https://dumisilem.github.io/WorkScheduler/
 
 
 
